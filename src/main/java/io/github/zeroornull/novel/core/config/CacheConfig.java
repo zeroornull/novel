@@ -1,7 +1,7 @@
 package io.github.zeroornull.novel.core.config;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
-import io.github.zeroornull.novel.core.common.constant.CacheConsts;
+import io.github.zeroornull.novel.core.constant.CacheConsts;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.cache.support.SimpleCacheManager;

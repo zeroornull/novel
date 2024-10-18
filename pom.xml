@@ -30,12 +30,13 @@
 		<java.version>21</java.version>
 		<mybatis-plus.version>3.5.8</mybatis-plus.version>
 		<mybatis-plus-generator.version>3.5.8</mybatis-plus-generator.version>
-		<jjwt.version>0.11.5</jjwt.version>
+		<jjwt.version>0.12.6</jjwt.version>
 		<xxl-job.version>2.3.1</xxl-job.version>
 		<sentinel.version>1.8.4</sentinel.version>
 		<shardingsphere-jdbc.version>5.2.1</shardingsphere-jdbc.version>
 		<redisson.version>3.19.1</redisson.version>
 		<logbook.version>3.9.0</logbook.version>
+		<springdoc-openapi.version>2.6.0</springdoc-openapi.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -86,6 +87,31 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- 邮件 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<!-- elasticsearch -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>elasticsearch-java</artifactId>
+					<groupId>co.elastic.clients</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- OpenAPI 3 -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${springdoc-openapi.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-boot-starter</artifactId>
@@ -116,7 +142,37 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.18.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.xuxueli</groupId>
+			<artifactId>xxl-job-core</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+
+		<!-- JWT 相关 -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>${jjwt.version}</version>
+		</dependency>
+
+		<!-- 请求参数校验相关 -->
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
 		
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>${jjwt.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>${jjwt.version}</version>
+			<scope>runtime</scope>
+		</dependency>
 		
 	</dependencies>
 
