@@ -25,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -56,6 +57,7 @@ public class BookServiceImpl implements BookService {
     private final BookContentCacheManager bookContentCacheManager;
     private final BookCategoryCacheManager bookCategoryCacheManager;
     private static final Integer REC_BOOK_COUNT = 4;
+    private final BookRankCacheManager bookRankCacheManager;
 
     @Override
     public RestResp<Void> saveComment(UserCommentReqDto dto) {
@@ -501,4 +503,44 @@ public class BookServiceImpl implements BookService {
     public RestResp<List<BookRankRespDto>> listVisitRankBooks() {
         return RestResp.ok(bookRankCacheManager.listVisitRankBooks());
     }
+
+    @Override
+    public RestResp<List<BookRankRespDto>> listNewestRankBooks() {
+        return RestResp.ok(bookRankCacheManager.listNewestRankBooks());
+    }
+
+    @Override
+    public RestResp<List<BookRankRespDto>> listUpdateRankBooks() {
+        return RestResp.ok(bookRankCacheManager.listUpdateRankBooks());
+    }
+
+    @Override
+    public RestResp<PageRespDto<UserCommentRespDto>> listComments(Long userId, PageReqDto pageReqDto) {
+        IPage<BookComment> page = new Page<>();
+        page.setCurrent(pageReqDto.getPageNum());
+        page.setSize(pageReqDto.getPageSize());
+        QueryWrapper<BookComment> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(DatabaseConsts.BookCommentTable.COLUMN_USER_ID, userId)
+                .orderByDesc(DatabaseConsts.CommonColumnEnum.UPDATE_TIME.getName());
+        IPage<BookComment> bookCommentPage = bookCommentMapper.selectPage(page, queryWrapper);
+        List<BookComment> comments = bookCommentPage.getRecords();
+        if (!CollectionUtils.isEmpty(comments)) {
+            List<Long> bookIds = comments.stream().map(BookComment::getBookId).toList();
+            QueryWrapper<BookInfo> bookInfoQueryWrapper = new QueryWrapper<>();
+            bookInfoQueryWrapper.in(DatabaseConsts.CommonColumnEnum.ID.getName(), bookIds);
+            Map<Long, BookInfo> bookInfoMap = bookInfoMapper.selectList(bookInfoQueryWrapper).stream()
+                    .collect(Collectors.toMap(BookInfo::getId, Function.identity()));
+            return RestResp.ok(PageRespDto.of(pageReqDto.getPageNum(), pageReqDto.getPageSize(), page.getTotal(),
+                    comments.stream().map(v -> UserCommentRespDto.builder()
+                            .commentContent(v.getCommentContent())
+                            .commentBook(bookInfoMap.get(v.getBookId()).getBookName())
+                            .commentBookPic(bookInfoMap.get(v.getBookId()).getPicUrl())
+                            .commentTime(v.getCreateTime())
+                            .build()).toList()));
+
+        }
+        return RestResp.ok(PageRespDto.of(pageReqDto.getPageNum(), pageReqDto.getPageSize(), page.getTotal(),
+                Collections.emptyList()));
+    }
+
 }

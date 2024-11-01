@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @RequiredArgsConstructor
-public class AdminAuthStrategy implements AuthStrategy{
+public class AdminAuthStrategy implements AuthStrategy {
 
     @Override
     public void auth(String token, String requestUri) throws BusinessException {

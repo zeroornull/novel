@@ -36,7 +36,7 @@ public class WebConfig implements WebMvcConfigurer {
 
         // 文件访问拦截
         registry.addInterceptor(fileInterceptor)
-                .addPathPatterns(SystemConfigConsts.IMAGE_UPLOAD_PATH + "**")
+                .addPathPatterns(SystemConfigConsts.IMAGE_UPLOAD_DIRECTORY + "**")
                 .order(1);
 
         // 权限认证拦截

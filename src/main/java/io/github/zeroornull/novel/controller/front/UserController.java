@@ -1,12 +1,17 @@
 package io.github.zeroornull.novel.controller.front;
 
 import io.github.zeroornull.novel.core.auth.UserHolder;
+import io.github.zeroornull.novel.core.common.req.PageReqDto;
+import io.github.zeroornull.novel.core.common.resp.PageRespDto;
 import io.github.zeroornull.novel.core.common.resp.RestResp;
 import io.github.zeroornull.novel.core.constant.ApiRouterConsts;
 import io.github.zeroornull.novel.core.constant.SystemConfigConsts;
 import io.github.zeroornull.novel.dto.req.UserCommentReqDto;
+import io.github.zeroornull.novel.dto.req.UserInfoUptReqDto;
 import io.github.zeroornull.novel.dto.req.UserLoginReqDto;
 import io.github.zeroornull.novel.dto.req.UserRegisterReqDto;
+import io.github.zeroornull.novel.dto.resp.UserCommentRespDto;
+import io.github.zeroornull.novel.dto.resp.UserInfoRespDto;
 import io.github.zeroornull.novel.dto.resp.UserLoginRespDto;
 import io.github.zeroornull.novel.dto.resp.UserRegisterRespDto;
 import io.github.zeroornull.novel.service.BookService;
@@ -50,6 +55,43 @@ public class UserController {
     }
 
     /**
+     * 用户信息查询接口
+     */
+    @Operation(summary = "用户信息查询接口")
+    @GetMapping
+    public RestResp<UserInfoRespDto> getUserInfo() {
+        return userService.getUserInfo(UserHolder.getUserId());
+    }
+
+    /**
+     * 用户信息修改接口
+     */
+    @Operation(summary = "用户信息修改接口")
+    @PutMapping
+    public RestResp<Void> updateUserInfo(@Valid @RequestBody UserInfoUptReqDto dto) {
+        dto.setUserId(UserHolder.getUserId());
+        return userService.updateUserInfo(dto);
+    }
+    
+    /**
+     * 用户反馈提交接口
+     */
+    @Operation(summary = "用户反馈提交接口")
+    @PostMapping("feedback")
+    public RestResp<Void> submitFeedback(@RequestBody String content) {
+        return userService.saveFeedback(UserHolder.getUserId(), content);
+    }
+    
+    /**
+     * 用户反馈删除接口
+     */
+    @Operation(summary = "用户反馈删除接口")
+    @DeleteMapping("feedback/{id}")
+    public RestResp<Void> deleteFeedback(@Parameter(description = "反馈ID") @PathVariable Long id) {
+        return userService.deleteFeedback(UserHolder.getUserId(), id);
+    }
+
+    /**
      * 发表评论接口
      */
     @Operation(summary = "发表评论接口")
@@ -77,4 +119,22 @@ public class UserController {
         return bookService.deleteComment(UserHolder.getUserId(), id);
     }
 
+    /**
+     * 查询书架状态接口 0-不在书架 1-已在书架
+     */
+    @Operation(summary = "查询书架状态接口")
+    @GetMapping("bookshelf_status")
+    public RestResp<Integer> getBookshelfStatus(@Parameter(description = "小说ID") String bookId) {
+        return userService.getBookshelfStatus(UserHolder.getUserId(), bookId);
+    }
+
+    /**
+     * 分页查询评论
+     */
+    @Operation(summary = "查询会员评论列表接口")
+    @GetMapping("comments")
+    public RestResp<PageRespDto<UserCommentRespDto>> listComments(PageReqDto pageReqDto) {
+        return bookService.listComments(UserHolder.getUserId(), pageReqDto);
+    }
+    
 }

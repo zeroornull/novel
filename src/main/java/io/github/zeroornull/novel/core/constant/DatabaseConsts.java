@@ -14,28 +14,33 @@ public class DatabaseConsts {
      * 用户信息表
      */
     public static class UserInfoTable {
+
         private UserInfoTable() {
             throw new IllegalStateException(SystemConfigConsts.CONST_INSTANCE_EXCEPTION_MSG);
         }
 
         public static final String COLUMN_USERNAME = "username";
+
     }
 
     /**
      * 用户反馈表
      */
-    public static class UserFeedbackTable {
-        private UserFeedbackTable() {
+    public static class UserFeedBackTable {
+
+        private UserFeedBackTable() {
             throw new IllegalStateException(SystemConfigConsts.CONST_INSTANCE_EXCEPTION_MSG);
         }
 
         public static final String COLUMN_USER_ID = "user_id";
+
     }
 
     /**
      * 用户书架表
      */
     public static class UserBookshelfTable {
+
         private UserBookshelfTable() {
             throw new IllegalStateException(SystemConfigConsts.CONST_INSTANCE_EXCEPTION_MSG);
         }
@@ -43,6 +48,7 @@ public class DatabaseConsts {
         public static final String COLUMN_USER_ID = "user_id";
 
         public static final String COLUMN_BOOK_ID = "book_id";
+
     }
 
     /**
@@ -171,6 +177,7 @@ public class DatabaseConsts {
 
     }
 
+
     /**
      * SQL语句枚举类
      */
@@ -190,6 +197,5 @@ public class DatabaseConsts {
         }
 
     }
-
 
 }

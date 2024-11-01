@@ -7,7 +7,8 @@ package io.github.zeroornull.novel.core.constant;
  * @since 2024-10-12 12:57:39
  */
 public class SystemConfigConsts {
-    public SystemConfigConsts() {
+
+    private SystemConfigConsts() {
         throw new IllegalStateException(CONST_INSTANCE_EXCEPTION_MSG);
     }
 
@@ -34,7 +35,7 @@ public class SystemConfigConsts {
     /**
      * 图片上传目录
      */
-    public static final String IMAGE_UPLOAD_PATH = "/image/";
+    public static final String IMAGE_UPLOAD_DIRECTORY = "/image/";
 
     /**
      * 常量类实例化异常信息

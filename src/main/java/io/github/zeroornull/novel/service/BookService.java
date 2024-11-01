@@ -104,4 +104,10 @@ public interface BookService {
     RestResp<Long> getNextChapterId(Long chapterId);
 
     RestResp<List<BookRankRespDto>> listVisitRankBooks();
+
+    RestResp<List<BookRankRespDto>> listNewestRankBooks();
+
+    RestResp<List<BookRankRespDto>> listUpdateRankBooks();
+
+    RestResp<PageRespDto<UserCommentRespDto>> listComments(Long userId, PageReqDto pageReqDto);
 }

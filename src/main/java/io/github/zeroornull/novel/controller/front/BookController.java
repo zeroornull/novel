@@ -127,6 +127,23 @@ public class BookController {
         return bookService.listVisitRankBooks();
     }
 
+    /**
+     * 小说新书榜查询接口
+     */
+    @Operation(summary = "小说新书榜查询接口")
+    @GetMapping("newest_rank")
+    public RestResp<List<BookRankRespDto>> listNewestRankBooks() {
+        return bookService.listNewestRankBooks();
+    }
+
+    /**
+     * 小说更新榜查询接口
+     */
+    @Operation(summary = "小说更新榜查询接口")
+    @GetMapping("update_rank")
+    public RestResp<List<BookRankRespDto>> listUpdateRankBooks() {
+        return bookService.listUpdateRankBooks();
+    }
 
     /**
      * 小说最新评论查询接口
@@ -137,5 +154,4 @@ public class BookController {
             @Parameter(description = "小说ID") Long bookId) {
         return bookService.listNewestComments(bookId);
     }
-
 }

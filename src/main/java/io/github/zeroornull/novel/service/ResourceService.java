@@ -3,6 +3,7 @@ package io.github.zeroornull.novel.service;
 import io.github.zeroornull.novel.core.common.resp.RestResp;
 import io.github.zeroornull.novel.core.common.util.ImgVerifyCodeUtils;
 import io.github.zeroornull.novel.dto.resp.ImgVerifyCodeRespDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -20,4 +21,6 @@ public interface ResourceService {
      * @return Base64编码的图片
      */
     RestResp<ImgVerifyCodeRespDto> getImgVerifyCode() throws IOException;
+
+    RestResp<String> uploadImage(MultipartFile file);
 }

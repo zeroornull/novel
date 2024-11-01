@@ -50,7 +50,7 @@ import java.time.LocalDateTime;
             /**
              * 用户性别;0-男 1-女
              */
-                    private Byte userSex;
+                    private Integer userSex;
 
             /**
              * 账户余额
@@ -121,11 +121,11 @@ import java.time.LocalDateTime;
             this.userPhoto = userPhoto;
         }
 
-            public Byte getUserSex() {
+            public Integer getUserSex() {
             return userSex;
         }
 
-                public void setUserSex(Byte userSex) {
+                public void setUserSex(Integer userSex) {
             this.userSex = userSex;
         }
 
