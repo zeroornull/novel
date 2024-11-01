@@ -58,7 +58,7 @@ import java.time.LocalDateTime;
             /**
              * 作品方向;0-男频 1-女频
              */
-                    private Byte workDirection;
+                    private Integer workDirection;
 
             /**
              * 0：正常;1-封禁
@@ -132,11 +132,11 @@ import java.time.LocalDateTime;
             this.email = email;
         }
 
-            public Byte getWorkDirection() {
+            public Integer getWorkDirection() {
             return workDirection;
         }
 
-                public void setWorkDirection(Byte workDirection) {
+                public void setWorkDirection(Integer workDirection) {
             this.workDirection = workDirection;
         }
 

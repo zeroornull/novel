@@ -5,6 +5,7 @@ import io.github.zeroornull.novel.dao.entity.BookInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.github.zeroornull.novel.dto.req.BookSearchReqDto;
 import io.github.zeroornull.novel.dto.resp.BookInfoRespDto;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -27,4 +28,11 @@ public interface BookInfoMapper extends BaseMapper<BookInfo> {
      * @return 返回结果
      */
     List<BookInfo> searchBooks(IPage<BookInfoRespDto> page, BookSearchReqDto condition);
+
+    /**
+     * 增加小说点击量
+     *
+     * @param bookId 小说ID
+     */
+    void addVisitCount(@Param("bookId")Long bookId);
 }
